@@ -1,9 +1,15 @@
 'use-strict';
 
-document.getElementById("paper").onclick = playerMove;
-document.getElementById("rock").onclick = playerMove;
-document.getElementById("scissors").onclick = playerMove;
+
 document.getElementById("new-game").onclick = newGame;
+
+var allButtons = document.querySelectorAll('.player-move');
+
+for(var i = 0; i < allButtons.length; i++){
+  allButtons[i].addEventListener('click', playerMove);
+  console.log("siema");
+}
+
 
 var roundLimitInfo = document.getElementById("round-limit-info");
 var output = document.getElementById("output");
