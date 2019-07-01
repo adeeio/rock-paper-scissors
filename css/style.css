@@ -30,6 +30,7 @@ body {
   background: linear-gradient(gray, white, gray);
   margin: 10px;
 }
+
 #output {
   padding: 10px;
   width: 100%;
@@ -73,3 +74,5 @@ body {
   text-align: center;
   color: red;
 }
+
+/*# sourceMappingURL=style.css.map */
