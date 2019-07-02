@@ -4,10 +4,25 @@
 document.getElementById("new-game").onclick = newGame;
 
 var allButtons = document.querySelectorAll('.player-move');
+var params = {
+  cpuScore: 0,
+  userScore: 0,
+  roundLimit: 0,
+  rounding: 0,
+  paper: 1,
+  rock: 2,
+  scissors: 3,
+  draw: 1,
+  win: 2,
+  loose: 3,
+  paperString: "paper",
+  rockString: "rock",
+  scissorsString: "scissors"
+};
 
 for(var i = 0; i < allButtons.length; i++){
   allButtons[i].addEventListener('click', playerMove);
-  console.log("siema");
+  
 }
 
 
@@ -16,22 +31,22 @@ var output = document.getElementById("output");
 var result = document.getElementById("result");
 var strikes = document.getElementById("strikes");
 
-var cpuScore = 0;
-var userScore = 0;
-var roundLimit = 0;
-var rounding = 0;
+//var cpuScore = 0;
+//var userScore = 0;
+//var roundLimit = 0;
+//var rounding = 0;
 
-var paper = 1;
-var rock = 2;
-var scissors = 3;
-
-var draw  = 1;
-var win = 2;
-var loose = 3;
-
-var paperString = "paper";
-var rockString = "rock";
-var scissorsString ="scissors";
+//var paper = 1;
+//var rock = 2;
+//var scissors = 3;
+//
+//var draw  = 1;
+//var win = 2;
+//var loose = 3;
+//
+//var paperString = "paper";
+//var rockString = "rock";
+//var scissorsString ="scissors";
 
 
 
@@ -43,35 +58,35 @@ function btnEnability(btnDisable){
 
  function random(){
   var cpuChoice = Math.floor(Math.random() * 3) + 1;
-  if(cpuChoice === paper){
-    return paperString;
+  if(cpuChoice === params.paper){
+    return params.paperString;
   }
-   else if(cpuChoice === rock){
-     return rockString;
+   else if(cpuChoice === params.rock){
+     return params.rockString;
   }
    else{
-     return scissorsString;
+     return params.scissorsString;
   }}
 
  function checkResoults(x, y){
   if(x === y){
     result.innerHTML = " YOU PLAYED " + x + " CPU PLAYED " + y;
-    return draw;
+    return params.draw;
   }
-  else if(x === "paper" && y === "rock" || x === "rock" && y === "scissors" || x === "scissors" && y === "paper"){
+  else if(x === params.paperString && y === params.rockString || x === params.rockString && y === params.scissorsString || x === params.scissorsString && y === params.paperString){
     result.innerHTML = " YOU PLAYED " + x + " CPU PLAYED " + y;
-   return win;
+   return params.win;
 }
-  else if(x === "paper" && y === "scissors" || x === "rock" && y === "paper" || x === "scissors" && y === "rock"){
+  else if(x === params.paperString && y === params.scissorsString || x === params.rockString && y === params.paperString || x === params.scissorsString && y === params.rockString){
     result.innerHTML = " YOU PLAYED " + x + " CPU PLAYED " + y;
-    return loose;
+    return params.loose;
 }}
 
 function displayStats(s){
-    if(s === draw ){
+    if(s === params.draw ){
       output.innerHTML = " ITS A DRAW!";
     }
-    else if(s === win){
+    else if(s === params.win){
       output.innerHTML = " YOU WIN";
       strikes.innerHTML += " Y ";
     }
@@ -82,48 +97,48 @@ function displayStats(s){
   }
 
 function scoring(a){
-    if(a === win){
-      userScore++;
-      rounding++;
+    if(a === params.win){
+      params.userScore++;
+      params.rounding++;
     }
-    else if(a === loose){
-      cpuScore++;
-      rounding++;
+    else if(a === params.loose){
+      params.cpuScore++;
+      params.rounding++;
     }
-    else if(a === draw){
-      //rounding++;
+    else if(a === params.draw){
+      params.rounding++;
      
     }
   }
 
 function gameOver(u, c) {
-    if(rounding === roundLimit && cpuScore < userScore){
+    if(params.rounding === params.roundLimit && params.cpuScore < params.userScore){
       result.innerHTML = "YOU WON THE ENTIRE GAME!";
       output.innerHTML = " PRESS NEW GAME BUTTON TO PLAY AGAIN!";
       btnEnability(true);
-      cpuScore = 0;
-      userScore = 0;
-      roundLimit = 0;
-      rounding = 0;
+      params.cpuScore = 0;
+      params.userScore = 0;
+     params.roundLimit = 0;
+      params.rounding = 0;
       return true;
     }
-    else if(rounding === roundLimit && cpuScore > userScore){
+    else if(params.rounding === params.roundLimit && params.cpuScore > params.userScore){
       result.innerHTML = "YOU LOST WITH CPU, WHAT A LOOSER!";
       output.innerHTML = " PRESS NEW GAME BUTTON TO PLAY AGAIN!";
       btnEnability(true);
-      cpuScore = 0;
-      userScore = 0;
-      roundLimit = 0;
-      rounding = 0;
+      params.cpuScore = 0;
+      params.userScore = 0;
+     params.roundLimit = 0;
+      params.rounding = 0;
     }
-   else if(rounding === roundLimit && cpuScore === userScore){
+   else if(params.rounding === params.roundLimit && params.cpuScore === params.userScore){
       result.innerHTML = "ITS A DRAW!";
       output.innerHTML = " PRESS NEW GAME BUTTON TO PLAY AGAIN!";
       btnEnability(true);
-      cpuScore = 0;
-      userScore = 0;
-      roundLimit = 0;
-      rounding = 0;
+      params.cpuScore = 0;
+      params.userScore = 0;
+     params.roundLimit = 0;
+      params.rounding = 0;
     }
   }
 
@@ -141,11 +156,11 @@ function newGame(){
     alert(message + " invalid number");
   }
   else{
-    roundLimit = parseInt(message);
+   params.roundLimit = parseInt(message);
     result.innerHTML = " ";
     output.innerHTML = " ";
     strikes.innerHTML = " ";
-    roundLimitInfo.innerHTML = "Score " + roundLimit + " to win the game!";
+    roundLimitInfo.innerHTML = "Score " + params.roundLimit + " to win the game!";
     btnEnability(false);
   }
 }
@@ -154,11 +169,12 @@ btnEnability(true);
 
 
 function playerMove(){
+  //var att = event.getAttribute('data-move'); // o to chodzilo? 
   var userChoice = this.id;
   var cpuMove = random();
   var resoults = checkResoults(userChoice, cpuMove);
   
   displayStats(resoults);
   scoring(resoults);
-  gameOver(userScore, cpuScore);
+  gameOver(params.userScore, params.cpuScore);
 }
