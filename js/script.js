@@ -31,23 +31,6 @@ var output = document.getElementById("output");
 var result = document.getElementById("result");
 var strikes = document.getElementById("strikes");
 
-//var cpuScore = 0;
-//var userScore = 0;
-//var roundLimit = 0;
-//var rounding = 0;
-
-//var paper = 1;
-//var rock = 2;
-//var scissors = 3;
-//
-//var draw  = 1;
-//var win = 2;
-//var loose = 3;
-//
-//var paperString = "paper";
-//var rockString = "rock";
-//var scissorsString ="scissors";
-
 
 
 function btnEnability(btnDisable){
@@ -169,8 +152,9 @@ btnEnability(true);
 
 
 function playerMove(){
-  //var att = event.getAttribute('data-move'); // o to chodzilo? 
-  var userChoice = this.id;
+    
+  
+  var userChoice = this.getAttribute('data-move');
   var cpuMove = random();
   var resoults = checkResoults(userChoice, cpuMove);
   
