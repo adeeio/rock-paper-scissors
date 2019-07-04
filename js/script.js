@@ -30,6 +30,9 @@ var roundLimitInfo = document.getElementById("round-limit-info");
 var output = document.getElementById("output");
 var result = document.getElementById("result");
 var strikes = document.getElementById("strikes");
+var modalMessage = document.getElementById("modal-one").getElementsByTagName('div')[1];
+var modalStats = document.getElementById("modal-one").childNodes[3];
+
 
 
 
@@ -96,8 +99,9 @@ function scoring(a){
 
 function gameOver(u, c) {
     if(params.rounding === params.roundLimit && params.cpuScore < params.userScore){
-      result.innerHTML = "YOU WON THE ENTIRE GAME!";
-      output.innerHTML = " PRESS NEW GAME BUTTON TO PLAY AGAIN!";
+      modalStats.innerHTML = " YOU WON THE ENTIRE GAME!";
+      modalMessage.innerHTML = " PRESS NEW GAME BUTTON TO PLAY AGAIN!";
+      showModal();
       btnEnability(true);
       params.cpuScore = 0;
       params.userScore = 0;
@@ -106,8 +110,9 @@ function gameOver(u, c) {
       return true;
     }
     else if(params.rounding === params.roundLimit && params.cpuScore > params.userScore){
-      result.innerHTML = "YOU LOST WITH CPU, WHAT A LOOSER!";
-      output.innerHTML = " PRESS NEW GAME BUTTON TO PLAY AGAIN!";
+      modalStats.innerHTML = " YOU LOST WITH CPU, WHAT A LOOSER!";
+      modalMessage.innerHTML = " PRESS NEW GAME BUTTON TO PLAY AGAIN!";
+      showModal();
       btnEnability(true);
       params.cpuScore = 0;
       params.userScore = 0;
@@ -115,8 +120,9 @@ function gameOver(u, c) {
       params.rounding = 0;
     }
    else if(params.rounding === params.roundLimit && params.cpuScore === params.userScore){
-      result.innerHTML = "ITS A DRAW!";
-      output.innerHTML = " PRESS NEW GAME BUTTON TO PLAY AGAIN!";
+      modalStats.innerHTML = " ITS A DRAW!";
+      modalMessage.innerHTML = " PRESS NEW GAME BUTTON TO PLAY AGAIN!";
+      showModal();
       btnEnability(true);
       params.cpuScore = 0;
       params.userScore = 0;
@@ -150,10 +156,29 @@ function newGame(){
 
 btnEnability(true);
 
+function showModal(){
+  event.preventDefault();
+  document.querySelector('#modal-overlay').classList.add('show');
+  var modals = document.querySelectorAll('.modal');
+  for(var i = 0; i < modals.length; i++){
+    modals[i].classList.remove('show');
+    modals[i].classList.add('show'); 
+  }
+}
+
+var hideModal = function(event){
+  event.preventDefault();
+  document.querySelector('#modal-overlay').classList.remove('show');
+}
+
+var closeButtons = document.querySelectorAll('.modal .close');
+
+for(var i = 0; i < closeButtons.length; i++){
+  closeButtons[i].addEventListener('click', hideModal);
+}
+
 
 function playerMove(){
-    
-  
   var userChoice = this.getAttribute('data-move');
   var cpuMove = random();
   var resoults = checkResoults(userChoice, cpuMove);
